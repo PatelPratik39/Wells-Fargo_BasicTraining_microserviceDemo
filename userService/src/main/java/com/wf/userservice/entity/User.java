@@ -24,5 +24,8 @@ public class User {
     @Email(message = "Email should be valid")
     @NotBlank(message = "Email is mandatory")
     private String email;
-    private String sales;
+
+    private String city;
+    private String country;
+    private int sales;
 }

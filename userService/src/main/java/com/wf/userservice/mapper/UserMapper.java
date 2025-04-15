@@ -14,6 +14,8 @@ public class UserMapper {
         userDTO.setId(user.getId());
         userDTO.setName(user.getName());
         userDTO.setEmail(user.getEmail());
+        userDTO.setCity(user.getCity());
+        userDTO.setCountry(user.getCountry());
         userDTO.setSales(user.getSales());
         return userDTO;
     }
@@ -27,6 +29,8 @@ public class UserMapper {
         user.setId(userDTO.getId());
         user.setName(userDTO.getName());
         user.setEmail(userDTO.getEmail());
+        user.setCity(userDTO.getCity());
+        user.setCountry(userDTO.getCountry());
         user.setSales(userDTO.getSales());
         return user;
     }

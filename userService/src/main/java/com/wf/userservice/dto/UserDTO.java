@@ -13,5 +13,6 @@ public class UserDTO {
     private String name;
     private String email;
     private String city;
-    private String sales;
+    private String country;
+    private int sales;
 }
