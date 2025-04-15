@@ -1,6 +1,6 @@
 package com.wf.userservice.mapper;
 
-import com.wf.userservice.DTO.UserDTO;
+import com.wf.userservice.dto.UserDTO;
 import com.wf.userservice.entity.User;
 
 public class UserMapper {

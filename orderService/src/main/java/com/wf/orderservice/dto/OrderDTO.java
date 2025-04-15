@@ -1,4 +1,4 @@
-package com.wf.userservice.DTO;
+package com.wf.orderservice.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,11 +7,12 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDTO {
+public class OrderDTO {
 
     private String id;
-    private String name;
-    private String email;
-    private String city;
-    private String sales;
+    private String itemName;
+    private int quantity;
+    private double price;
+
+
 }
