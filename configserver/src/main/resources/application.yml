@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: configserver
+  cloud:
+    config:
+      server:
+        git:
+          uri: git@github.com:PatelPratik39/config-repo.git
+          default-label: main
+          clone-on-start: true
+          skip-ssl-validation: true
+server:
+  port: 8888
