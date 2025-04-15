@@ -4,23 +4,25 @@ import com.wf.orderservice.dto.OrderDTO;
 import com.wf.orderservice.entity.Order;
 
 public class OrderMapper {
+    public static Order mapToOrder(OrderDTO dto) {
+        return Order.builder()
+                .id(dto.getId())
+                .userId(dto.getUserId())
+                .product(dto.getProduct())
+                .quantity(dto.getQuantity())
+                .price(dto.getPrice())
+                .status(dto.getStatus())
+                .build();
+    }
 
-    public static OrderDTO mapToOrder(Order order){
-        if(order == null) return null;
-
+    public static OrderDTO mapToOrderDTO(Order order) {
         OrderDTO dto = new OrderDTO();
         dto.setId(order.getId());
-        dto.setItemName(order.getItemName());
+        dto.setUserId(order.getUserId());
+        dto.setProduct(order.getProduct());
         dto.setQuantity(order.getQuantity());
+        dto.setPrice(order.getPrice());
+        dto.setStatus(order.getStatus());
         return dto;
-    }
-    public static Order mapToOrder(OrderDTO orderDTO){
-        if(orderDTO == null) return null;
-
-        Order order = new Order();
-        order.setId(orderDTO.getId());
-        order.setItemName(orderDTO.getItemName());
-        order.setQuantity(orderDTO.getQuantity());
-        return order;
     }
 }
