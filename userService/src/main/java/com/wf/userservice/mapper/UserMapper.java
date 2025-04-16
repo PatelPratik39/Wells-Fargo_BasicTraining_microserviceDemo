@@ -2,7 +2,9 @@ package com.wf.userservice.mapper;
 
 import com.wf.userservice.dto.UserDTO;
 import com.wf.userservice.entity.User;
+import org.springframework.stereotype.Component;
 
+@Component
 public class UserMapper {
 
 //    User Entity class to UserDto class

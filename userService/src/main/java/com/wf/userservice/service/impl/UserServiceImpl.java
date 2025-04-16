@@ -27,8 +27,14 @@ public class UserServiceImpl implements UserService  {
 
     @Override
     public UserDTO createUser(UserDTO userDTO) {
+        // Use static mapper directly
+        if (userDTO == null) {
+            throw new IllegalArgumentException("UserDTO is null");
+        }
+
         User user = UserMapper.mapToUser(userDTO);
-        return UserMapper.mapToUserDTO(userRepository.save(user));
+        User savedUser = userRepository.save(user);
+        return UserMapper.mapToUserDTO(savedUser);
     }
 
     @Override
@@ -70,8 +76,6 @@ public class UserServiceImpl implements UserService  {
         }
         return cityCounts;
     }
-
-
 
     @Override
     public void deleteUser(String id) {

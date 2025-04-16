@@ -12,7 +12,7 @@ import jakarta.validation.constraints.Size;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(collation = "users")
+@Document(collection = "users")
 public class User {
 
     @Id

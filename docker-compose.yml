@@ -1,0 +1,72 @@
+version: "3.8"
+
+services:
+
+  mongodb:
+    image: mongo:7.0
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    networks:
+      - microservice-network
+
+  configserver:
+    build:
+      context: ./configserver
+    container_name: configserver
+    ports:
+      - "8888:8888"
+    depends_on:
+      - mongodb
+    environment:
+      - SPRING_PROFILES_ACTIVE=default
+      - GIT_SSL_NO_VERIFY=true
+    networks:
+      - microservice-network
+
+  eurekaserver:
+    build:
+      context: ./eurekaserver
+    container_name: eurekaserver
+    ports:
+      - "8761:8761"
+    depends_on:
+      - configserver
+    environment:
+      - SPRING_PROFILES_ACTIVE=default
+    networks:
+      - microservice-network
+
+  user-service:
+    build:
+      context: ./userService
+    container_name: user-service
+    ports:
+      - "8081:8081"
+    depends_on:
+      - configserver
+      - eurekaserver
+      - mongodb
+    environment:
+      - SPRING_PROFILES_ACTIVE=default
+    networks:
+      - microservice-network
+
+  order-service:
+    build:
+      context: ./orderService
+    container_name: order-service
+    ports:
+      - "8082:8082"
+    depends_on:
+      - configserver
+      - eurekaserver
+      - mongodb
+    environment:
+      - SPRING_PROFILES_ACTIVE=default
+    networks:
+      - microservice-network
+
+networks:
+  microservice-network:
+    driver: bridge
