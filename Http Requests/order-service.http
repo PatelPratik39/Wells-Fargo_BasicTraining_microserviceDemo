@@ -1,0 +1,34 @@
+### Create Order
+POST http://localhost:8082/api/orders
+Content-Type: application/json
+
+{
+  "userId": "userId-placeholder",
+  "product": "MacBook Pro",
+  "quantity": 1,
+  "price": 2499,
+  "status": "Yes"
+}
+
+### Get All Orders
+GET http://localhost:8082/api/orders
+
+### Get Order By ID
+GET http://localhost:8082/api/orders/68002cb918bfd77d89f89fe3
+
+### Update Order
+PUT http://localhost:8082/api/orders/68002cb918bfd77d89f89fe3
+Content-Type: application/json
+
+{
+  "product": "MacBook Air",
+  "quantity": 2,
+  "price": 3900,
+  "status": "No"
+}
+
+### Delete Order
+DELETE http://localhost:8082/api/orders/68002c4b18bfd77d89f89fe1
+
+### Get Order Stats by Product
+GET http://localhost:8082/api/orders/count-by-status

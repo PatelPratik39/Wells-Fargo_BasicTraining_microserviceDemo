@@ -72,10 +72,14 @@ public class UserServiceImpl implements UserService  {
 
         Map<String, Long> cityCounts = new HashMap<>();
         for (Document doc : results.getMappedResults()) {
-            cityCounts.put(doc.getString("_id"), doc.getLong("count")); // "_id" will hold group field
+            Object idObj = doc.get("_id");
+            String city = idObj != null ? idObj.toString() : "Unknown";
+            Number count = doc.get("count", Number.class);
+            cityCounts.put(city, count != null ? count.longValue() : 0L);
         }
         return cityCounts;
     }
+
 
     @Override
     public void deleteUser(String id) {
