@@ -3,11 +3,11 @@ POST http://localhost:8081/api/users
 Content-Type: application/json
 
 {
-  "name": "Chucha Lal",
-  "email": "chucha@example.com",
-  "city": "Las Vegas",
+  "name": "John Doe",
+  "email": "John@example.com",
+  "city": "Chicago",
   "country": "Usa",
-  "sales": 2000
+  "sales": 1900
 }
 
 ### Get All Users

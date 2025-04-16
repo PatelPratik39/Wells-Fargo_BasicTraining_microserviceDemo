@@ -63,22 +63,28 @@ public class UserServiceImpl implements UserService  {
 
     @Override
     public Map<String, Long> getUserCountGroupedByCity() {
-        Aggregation aggregation = Aggregation.newAggregation(
-                Aggregation.group("city").count().as("count"),
-                Aggregation.project("count").and("city").previousOperation()
-        );
+        try {
+            Aggregation aggregation = Aggregation.newAggregation(
+                    Aggregation.group("city").count().as("count")
+            );
 
-        AggregationResults<Document> results = mongoTemplate.aggregate(aggregation, "users", Document.class);
+            AggregationResults<Document> results = mongoTemplate.aggregate(aggregation, "users", Document.class);
 
-        Map<String, Long> cityCounts = new HashMap<>();
-        for (Document doc : results.getMappedResults()) {
-            Object idObj = doc.get("_id");
-            String city = idObj != null ? idObj.toString() : "Unknown";
-            Number count = doc.get("count", Number.class);
-            cityCounts.put(city, count != null ? count.longValue() : 0L);
+            Map<String, Long> cityCounts = new HashMap<>();
+            for (Document doc : results.getMappedResults()) {
+                Object idObj = doc.get("_id");
+                String city = idObj != null ? idObj.toString() : "Unknown";
+                Number count = doc.get("count", Number.class);
+                cityCounts.put(city, count != null ? count.longValue() : 0L);
+            }
+
+            return cityCounts;
+        } catch (Exception e) {
+            e.printStackTrace(); // Or use log.error("Aggregation error", e);
+            throw e;
         }
-        return cityCounts;
     }
+
 
 
     @Override

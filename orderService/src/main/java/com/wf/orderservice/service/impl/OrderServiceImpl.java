@@ -55,17 +55,28 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Map<String, Long> getOrderCountByStatus() {
-        Aggregation aggregation = Aggregation.newAggregation(
-                Aggregation.group("status").count().as("count"),
-                Aggregation.project("count").and("status").previousOperation()
-        );
-        AggregationResults<Document> results = mongoTemplate.aggregate(aggregation, "orders", Document.class);
-        Map<String, Long> statusCount = new HashMap<>();
-        for(Document document: results) {
-            statusCount.put(document.getString("_id"), document.getLong("count"));
+        try {
+            Aggregation aggregation = Aggregation.newAggregation(
+                    Aggregation.group("status").count().as("count")
+            );
+
+            AggregationResults<Document> results = mongoTemplate.aggregate(aggregation, "orders", Document.class);
+            Map<String, Long> statusCount = new HashMap<>();
+
+            for (Document document : results) {
+                String status = document.get("_id") != null ? document.get("_id").toString() : "Unknown";
+                Long count = document.getLong("count");
+                statusCount.put(status, count != null ? count : 0L);
+            }
+
+            return statusCount;
+        } catch (Exception e) {
+            System.out.println("❌ Error while aggregating order status count:");
+            e.printStackTrace();
+            throw e;
         }
-        return statusCount;
     }
+
 
     @Override
     public void deleteOrder(String id) {
