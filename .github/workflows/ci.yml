@@ -15,12 +15,11 @@ jobs:
       - name: setup Java
         uses: actions/setup-java@v4 
         with:
-          distribution: temuran
-          java-version: 21
+          distribution: temurin
+          java-version: '21'
           
       - name: run mvn
         run: mvn test
       
       - name : build packages
         run: mvn -DskipTests package
-  
