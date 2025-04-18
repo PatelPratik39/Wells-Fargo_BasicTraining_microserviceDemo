@@ -5,6 +5,8 @@ import com.wf.userservice.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,11 +19,14 @@ import java.util.*;
 @Tag(name = "Users", description = "User management APIs")
 public class UserController {
 
+    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+
     private final UserService userService;
 
     @Operation(summary = "Create a User")
     @PostMapping
     public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO){
+        logger.info("Creating a User");
         return new ResponseEntity<>(userService.createUser(userDTO), HttpStatus.CREATED);
     }
 
