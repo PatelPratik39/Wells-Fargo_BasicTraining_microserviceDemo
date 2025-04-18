@@ -10,6 +10,16 @@ services:
     networks:
       - microservice-network
 
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    environment:
+      POSTGRES_DB: productDb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+
   configserver:
     build:
       context: ./configserver
@@ -66,6 +76,22 @@ services:
       - kafka
     environment:
       - SPRING_PROFILES_ACTIVE=default
+    networks:
+      - microservice-network
+
+  product-service:
+    build:
+      context: ./productService
+    container_name: product-service
+    ports:
+      - "8083:8083"
+    depends_on:
+      - configserver
+      - kafka
+      - postgres
+      - eurekaserver
+    environment:
+      SPRING_PROFILES_ACTIVE: default
     networks:
       - microservice-network
 
