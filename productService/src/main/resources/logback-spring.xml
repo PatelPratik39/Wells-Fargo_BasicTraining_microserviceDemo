@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <!-- Set default log level -->
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+    </root>
+
+    <!-- Appender for console output -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!-- Customize log levels for specific packages -->
+    <logger name="org.springframework" level="INFO"/>
+    <logger name="org.hibernate" level="WARN"/>
+    <logger name="com.wf" level="DEBUG"/> <!-- Replace with your base package -->
+
+</configuration>

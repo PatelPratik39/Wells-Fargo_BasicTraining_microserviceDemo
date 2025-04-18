@@ -1,0 +1,3 @@
+POST http://localhost:8081/api/kafka/publish?message=HelloKafka
+
+GET http://localhost:8761/

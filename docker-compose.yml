@@ -19,6 +19,8 @@ services:
       POSTGRES_PASSWORD: postgres
     ports:
       - "5432:5432"
+    networks:
+        - microservice-network
 
   configserver:
     build:
