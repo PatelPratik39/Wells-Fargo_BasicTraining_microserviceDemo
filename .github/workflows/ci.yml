@@ -1,6 +1,6 @@
 name: CI/CD Hello World
 
-on: 
+on:
   push:
     branches: ['pratik-branch']
 
@@ -9,17 +9,17 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - name: checkout code
+      - name: Checkout code
         uses: actions/checkout@v4
-        
-      - name: setup Java
-        uses: actions/setup-java@v4 
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: '21'
-          
-      - name: run mvn
+
+      - name: Run Maven tests
         run: mvn test
-      
-      - name : build packages
-        run: mvn -DskipTests package
+
+      - name: Build package (skip tests)
+        run: mvn package -DskipTests
