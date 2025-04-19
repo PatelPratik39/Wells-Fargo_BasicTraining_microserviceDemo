@@ -1,3 +1,29 @@
+#name: CI/CD Hello World
+#
+#on:
+#  push:
+#    branches: ['pratik-branch']
+#
+#jobs:
+#  build:
+#    runs-on: ubuntu-latest
+#
+#    steps:
+#      - name: Checkout code
+#        uses: actions/checkout@v4
+#
+#      - name: Set up Java
+#        uses: actions/setup-java@v4
+#        with:
+#          distribution: temurin
+#          java-version: '21'
+#
+#      - name: Run Maven tests
+#        run: mvn test
+#
+#      - name: Build package (skip tests)
+#        run: mvn package -DskipTests
+
 name: CI/CD Hello World
 
 on:
@@ -19,11 +45,12 @@ jobs:
           java-version: '21'
 
       - name: Run Maven tests
+        working-directory: ./productService   # 👈 Change to your folder with pom.xml
         run: mvn test
 
       - name: Build package (skip tests)
+        working-directory: ./productService   # 👈 Same here
         run: mvn package -DskipTests
-
 
 
 #name: CI/CD Hello World
