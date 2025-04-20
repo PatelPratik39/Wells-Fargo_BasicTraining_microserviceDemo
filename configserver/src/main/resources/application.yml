@@ -9,5 +9,14 @@ spring:
           default-label: main
           clone-on-start: true
           skip-ssl-validation: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  prometheus:
+    metrics:
+      export:
+        enabled: true
 server:
   port: 8888

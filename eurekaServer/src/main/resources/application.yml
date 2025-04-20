@@ -1,3 +1,33 @@
+#spring:
+#  application:
+#    name: eureka-server
+#
+#server:
+#  port: 8761
+#
+#eureka:
+#  client:
+#    register-with-eureka: false   # Don't register Eureka server with itself
+#    fetch-registry: false         # Eureka server doesn't fetch other services
+#  instance:
+#    hostname: eurekaserver        # Must match the container name in docker-compose
+#    prefer-ip-address: true
+#
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: health           # Required for Docker health check
+#  endpoint:
+#    health:
+#      show-details: always
+#
+#logging:
+#  level:
+#    com.netflix.eureka: INFO
+#    org.springframework.cloud: INFO
+
+
 spring:
   application:
     name: eureka-server
@@ -14,13 +44,23 @@ eureka:
     prefer-ip-address: true
 
 management:
+  tracing:
+    sampling:
+      probability: 1.0
+  zipkin:
+    tracing:
+      endpoint: http://localhost:9411/api/v2/spans
   endpoints:
     web:
       exposure:
-        include: health           # Required for Docker health check
+        include: "*"   # expose all actuator endpoints for metrics + tracing
   endpoint:
     health:
       show-details: always
+  prometheus:
+    metrics:
+      export:
+        enabled: true
 
 logging:
   level:
