@@ -56,7 +56,7 @@ services:
     networks:
       - microservice-network
     healthcheck:
-      test: [ "CMD", "curl", "--fail", "http://configserver:8761/actuator/health" ]
+      test: [ "CMD", "curl", "--fail", "http://localhost:8761/actuator/health" ]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -101,8 +101,8 @@ services:
       - "8083:8083"
     depends_on:
       - configserver
-      - kafka
       - postgres
+      - kafka
       - eurekaserver
     environment:
       - SPRING_PROFILES_ACTIVE=default
@@ -117,12 +117,13 @@ services:
       - "8084:8084"
     depends_on:
       - mongodb
-      - -kafka
+      - kafka
       - configserver
       - eurekaserver
+    environment:
+      - SPRING_PROFILES_ACTIVE=default
     networks:
       - microservice-network
-
 
   zookeeper:
     image: bitnami/zookeeper:3.9

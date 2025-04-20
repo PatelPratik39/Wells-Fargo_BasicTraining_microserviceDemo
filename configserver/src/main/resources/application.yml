@@ -1,6 +1,7 @@
 spring:
   application:
     name: configserver
+
   cloud:
     config:
       server:
@@ -9,14 +10,25 @@ spring:
           default-label: main
           clone-on-start: true
           skip-ssl-validation: true
+server:
+  port: 8888
+
 management:
   endpoints:
     web:
       exposure:
         include: "*"
+  endpoint:
+    health:
+      show-details: always
+
+  tracing:
+    sampling:
+      probability: 1.0
+  zipkin:
+    tracing:
+      endpoint: http://zipkin:9411/api/v2/spans
   prometheus:
     metrics:
       export:
         enabled: true
-server:
-  port: 8888

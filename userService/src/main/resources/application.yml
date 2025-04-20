@@ -1,32 +1,40 @@
+#spring:
+#  application:
+#    name: user-service
+#  config:
+#    import: optional:configserver:http://configserver:8888
+#    fail-fast: true
+#  data:
+#    mongodb:
+#      uri: mongodb://mongoDb:27017/userDb
+#management:
+#  tracing:
+#    sampling:
+#      probability: 1.0
+#  zipkin:
+#    tracing:
+#      endpoint: http://zipkin:9411/api/v2/spans
+#  endpoints:
+#    web:
+#      exposure:
+#        include: "*"
+#  prometheus:
+#    metrics:
+#      export:
+#        enabled: true
+#server:
+#  port: 8081
+
 spring:
   application:
     name: user-service
+
   config:
     import: optional:configserver:http://configserver:8888
-  data:
-    mongodb:
-      uri: mongodb://localhost:27017/userDb
-management:
-  tracing:
-    sampling:
-      probability: 1.0
-  zipkin:
-    tracing:
-      endpoint: http://localhost:9411/api/v2/spans
-  endpoints:
-    web:
-      exposure:
-        include: "*"
-  prometheus:
-    metrics:
-      export:
-        enabled: true
-
+    fail-fast: true
 
 server:
   port: 8081
-
-
 
 
 
