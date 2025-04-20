@@ -109,6 +109,21 @@ services:
     networks:
       - microservice-network
 
+  notification-service:
+    build:
+      context: ./notification-service
+    container_name: notification-service
+    ports:
+      - "8084:8084"
+    depends_on:
+      - mongodb
+      - -kafka
+      - configserver
+      - eurekaserver
+    networks:
+      - microservice-network
+
+
   zookeeper:
     image: bitnami/zookeeper:3.9
     container_name: zookeeper

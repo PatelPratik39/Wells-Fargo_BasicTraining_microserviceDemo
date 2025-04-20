@@ -1,12 +1,10 @@
 package com.wf.notificationservice.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
@@ -17,12 +15,14 @@ import java.util.Map;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Notification {
 
     @Id
     private String id;
-    private String type;
+    private String userId;
     private String message;
+    private String source;
     private LocalDateTime timestamp;
-    private Map<String, Object> metadata;
+    private Map<String, Object> payload; // flexible JSON storage
 }
