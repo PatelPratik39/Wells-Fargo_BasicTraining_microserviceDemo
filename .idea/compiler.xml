@@ -10,16 +10,6 @@
         <module name="eurekaServer" />
         <module name="configserver" />
       </profile>
-      <profile name="Annotation profile for orderService" enabled="true">
-        <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <processorPath useClasspath="false">
-          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.36/lombok-1.18.36.jar" />
-          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.36/lombok-1.18.36.jar" />
-        </processorPath>
-        <module name="orderService" />
-      </profile>
       <profile name="Annotation profile for productService" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
@@ -29,6 +19,7 @@
         </processorPath>
         <module name="productService" />
         <module name="userService" />
+        <module name="orderService" />
       </profile>
     </annotationProcessing>
   </component>

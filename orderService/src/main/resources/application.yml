@@ -1,22 +1,13 @@
 spring:
   application:
-    name: order-service
+    name: order-service   # 👈 must match the YAML file name in your config-repo
+
   config:
     import: optional:configserver:http://configserver:8888
 
-eureka:
-  client:
-    service-url:
-      defaultZone: http://eurekaserver:8761/eureka
-    register-with-eureka: true
-    fetch-registry: true
-  instance:
-    prefer-ip-address: true
-    lease-renewal-interval-in-seconds: 10
-    lease-expiration-duration-in-seconds: 30
-
 server:
   port: 8082
+
 
 
 

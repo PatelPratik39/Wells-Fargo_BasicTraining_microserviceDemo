@@ -7,14 +7,21 @@ server:
 
 eureka:
   client:
-    register-with-eureka: false
-    fetch-registry: false
-
+    register-with-eureka: false   # Don't register Eureka server with itself
+    fetch-registry: false         # Eureka server doesn't fetch other services
   instance:
-    hostname: eurekaserver
+    hostname: eurekaserver        # Must match the container name in docker-compose
     prefer-ip-address: true
 
-# Optional for debug
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health           # Required for Docker health check
+  endpoint:
+    health:
+      show-details: always
+
 logging:
   level:
     com.netflix.eureka: INFO
