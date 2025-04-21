@@ -1,7 +1,6 @@
-version: "3.8"
-
 services:
 
+# MongoDB database
   mongodb:
     image: mongo:latest
     container_name: mongodb
@@ -10,6 +9,7 @@ services:
     networks:
       - microservice-network
 
+#    # postgres database
   postgres:
     image: postgres:latest
     container_name: postgres
@@ -24,6 +24,7 @@ services:
     networks:
       - microservice-network
 
+    # Config server
   configserver:
     build:
       context: ./configserver
@@ -43,6 +44,7 @@ services:
       timeout: 5s
       retries: 5
 
+#    # Eureka server
   eurekaserver:
     build:
       context: ./eurekaserver
@@ -61,6 +63,7 @@ services:
       timeout: 5s
       retries: 5
 
+#   # User-service
   user-service:
     build:
       context: ./userService
@@ -77,6 +80,7 @@ services:
     networks:
       - microservice-network
 
+#   # Order-service
   order-service:
     build:
       context: ./orderService
@@ -93,6 +97,7 @@ services:
     networks:
       - microservice-network
 
+#   # Product-service
   product-service:
     build:
       context: ./productService
@@ -109,6 +114,7 @@ services:
     networks:
       - microservice-network
 
+#   Notification-service
   notification-service:
     build:
       context: ./notification-service
@@ -125,6 +131,7 @@ services:
     networks:
       - microservice-network
 
+# Zookeeper and Kafka
   zookeeper:
     image: bitnami/zookeeper:3.9
     container_name: zookeeper

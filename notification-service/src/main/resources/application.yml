@@ -7,7 +7,7 @@ spring:
 
   data:
     mongodb:
-      uri: mongodb://localhost:27017/notificationDb
+      uri: mongodb://mongodb:27017/notificationDb
 
 
 management:
