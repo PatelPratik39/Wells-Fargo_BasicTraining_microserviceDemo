@@ -28,13 +28,13 @@
 spring:
   application:
     name: user-service
-
   config:
     import: optional:configserver:http://configserver:8888
-    fail-fast: true
 
-server:
-  port: 8081
+#server:
+#  port: 8081
+
+
 
 
 

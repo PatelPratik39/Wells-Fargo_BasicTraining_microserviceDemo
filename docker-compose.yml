@@ -39,12 +39,13 @@ services:
     networks:
       - microservice-network
     healthcheck:
-      test: [ "CMD", "curl", "-f", "http://configserver:8888/actuator/health" ]
+      test: [ "CMD", "curl", "-f", "http://localhost:8888/actuator/health" ]
       interval: 10s
       timeout: 5s
       retries: 5
 
-#    # Eureka server
+
+  #    # Eureka server
   eurekaserver:
     build:
       context: ./eurekaserver
@@ -52,13 +53,14 @@ services:
     ports:
       - "8761:8761"
     depends_on:
-      - configserver
+      configserver:
+        condition: service_healthy
     environment:
       - SPRING_PROFILES_ACTIVE=default
     networks:
       - microservice-network
     healthcheck:
-      test: [ "CMD", "curl", "--fail", "http://localhost:8761/actuator/health" ]
+      test: [ "CMD", "curl", "-f", "http://localhost:8761/actuator/health" ]
       interval: 10s
       timeout: 5s
       retries: 5

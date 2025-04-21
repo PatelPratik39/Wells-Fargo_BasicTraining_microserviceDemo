@@ -9,9 +9,16 @@ spring:
           uri: https://github.com/PatelPratik39/config-repo
           default-label: main
           clone-on-start: true
-          skip-ssl-validation: true
+      fail-fast: true
+    profiles:
+      active: git
 server:
   port: 8888
+
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
 
 management:
   endpoints:
