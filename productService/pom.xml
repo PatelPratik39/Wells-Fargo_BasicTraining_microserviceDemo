@@ -95,7 +95,7 @@
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
-			<version>42.6.0</version> <!-- or latest stable -->
+<!--			<version>42.6.0</version> &lt;!&ndash; or latest stable &ndash;&gt;-->
 		</dependency>
 
 		<dependency>
