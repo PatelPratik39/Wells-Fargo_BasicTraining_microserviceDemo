@@ -1,0 +1,41 @@
+### Create a notification
+POST http://localhost:8084/api/notifications
+Content-Type: application/json
+
+{
+  "userId": "123456",
+  "message": "Order placed successfully!",
+  "source": "order-service",
+  "payload": {
+    "orderId": "ORD98765",
+    "amount": 299.99,
+    "status": "CONFIRMED"
+  }
+}
+
+###
+
+### Get all notifications
+GET http://localhost:8084/api/notifications
+Accept: application/json
+
+###
+
+### Get notification by userId
+GET http://localhost:8084/api/notifications/user/123456
+Accept: application/json
+
+###
+
+### Health check (Actuator)
+GET http://localhost:8084/actuator/health
+
+###
+
+### Prometheus metrics
+GET http://localhost:8084/actuator/prometheus
+
+###
+
+### Zipkin test — this sends a dummy span (if tracing enabled)
+GET http://localhost:9411/zipkin/

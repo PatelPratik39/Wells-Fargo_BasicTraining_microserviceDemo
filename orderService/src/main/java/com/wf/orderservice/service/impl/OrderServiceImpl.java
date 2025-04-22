@@ -50,6 +50,7 @@ public class OrderServiceImpl implements OrderService {
         existingOrder.setPrice(orderDTO.getPrice());
         existingOrder.setQuantity(orderDTO.getQuantity());
         existingOrder.setStatus(orderDTO.getStatus());
+
         return OrderMapper.mapToOrderDTO(orderRepository.save(existingOrder));
     }
 

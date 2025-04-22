@@ -1,43 +1,43 @@
+#spring:
+#  application:
+#    name: user-service
+#  config:
+#    import: optional:configserver:http://configserver:8888
+#    fail-fast: true
+#  data:
+#    mongodb:
+#      uri: mongodb://mongoDb:27017/userDb
+#management:
+#  tracing:
+#    sampling:
+#      probability: 1.0
+#  zipkin:
+#    tracing:
+#      endpoint: http://zipkin:9411/api/v2/spans
+#  endpoints:
+#    web:
+#      exposure:
+#        include: "*"
+#  prometheus:
+#    metrics:
+#      export:
+#        enabled: true
+#server:
+#  port: 8081
+
 spring:
   application:
     name: user-service
-
   config:
     import: optional:configserver:http://configserver:8888
 
-  data:
-    mongodb:
-      uri: mongodb://localhost:27017/userDb
+#server:
+#  port: 8081
 
-  cloud:
-    config:
-      enabled: true
 
-  main:
-    allow-bean-definition-overriding: true
 
-  kafka:
-    bootstrap-servers: kafka:9092
-    consumer:
-      group-id: user-group
-      auto-offset-reset: earliest
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-    producer:
-      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.apache.kafka.common.serialization.StringSerializer
 
-  eureka:
-    client:
-      service-url:
-        defaultZone: http://eurekaserver:8761/eureka
-    instance:
-      prefer-ip-address: true
-      lease-renewal-interval-in-seconds: 10
-      lease-expiration-duration-in-seconds: 30
 
-server:
-  port: 8081
 
 #  data:
 #    mongodb:
@@ -61,14 +61,3 @@ server:
 #      key-serializer: org.apache.kafka.common.serialization.StringSerializer
 #      value-serializer: org.apache.kafka.common.serialization.StringSerializer
 #
-#  eureka:
-#    client:
-#      service-url:
-#        defaultZone: http://eurekaserver:8761/eureka
-#    instance:
-#      prefer-ip-address: true
-#      lease-renewal-interval-in-seconds: 10
-#      lease-expiration-duration-in-seconds: 30
-#
-#server:
-#  port: 8081
