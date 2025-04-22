@@ -29,7 +29,8 @@ jobs:
         working-directory: ${{ matrix.service }}
         run: |
           mvn clean package -DskipTests
-          docker build -t ${{ matrix.service }}:latest .
+          IMAGE_TAG=$(echo "${{ matrix.service }}" | tr '[:upper:]' '[:lower:]')
+          docker build -t $IMAGE_TAG:latest .
 
   run-docker-compose:
     runs-on: ubuntu-latest
