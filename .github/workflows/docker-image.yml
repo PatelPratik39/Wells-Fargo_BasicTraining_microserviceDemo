@@ -2,7 +2,7 @@ name: CI/CD with Docker Compose
 
 on:
   push:
-    branches: [ "pratik-branch" ]
+    branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
 
