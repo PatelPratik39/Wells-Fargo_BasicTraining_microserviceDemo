@@ -90,7 +90,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.11.0</version> <!-- or 3.13.0+ -->
                 <configuration>
                     <release>${java.version}</release>
                 </configuration>
