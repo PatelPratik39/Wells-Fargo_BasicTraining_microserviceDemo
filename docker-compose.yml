@@ -1,15 +1,30 @@
-version: "3.8"
-
 services:
 
+# MongoDB database
   mongodb:
-    image: mongo:7.0
+    image: mongo:latest
     container_name: mongodb
     ports:
       - "27017:27017"
     networks:
       - microservice-network
 
+#    # postgres database
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    environment:
+      POSTGRES_DB: productDb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - microservice-network
+
+    # Config server
   configserver:
     build:
       context: ./configserver
@@ -23,7 +38,14 @@ services:
       - GIT_SSL_NO_VERIFY=true
     networks:
       - microservice-network
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8888/actuator/health" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
+
+  #    # Eureka server
   eurekaserver:
     build:
       context: ./eurekaserver
@@ -31,12 +53,19 @@ services:
     ports:
       - "8761:8761"
     depends_on:
-      - configserver
+      configserver:
+        condition: service_healthy
     environment:
       - SPRING_PROFILES_ACTIVE=default
     networks:
       - microservice-network
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8761/actuator/health" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
+#   # User-service
   user-service:
     build:
       context: ./userService
@@ -53,6 +82,7 @@ services:
     networks:
       - microservice-network
 
+#   # Order-service
   order-service:
     build:
       context: ./orderService
@@ -69,29 +99,75 @@ services:
     networks:
       - microservice-network
 
+#   # Product-service
+  product-service:
+    build:
+      context: ./productService
+    container_name: product-service
+    ports:
+      - "8083:8083"
+    depends_on:
+      - configserver
+      - postgres
+      - kafka
+      - eurekaserver
+    environment:
+      - SPRING_PROFILES_ACTIVE=default
+    networks:
+      - microservice-network
+
+#   Notification-service
+  notification-service:
+    build:
+      context: ./notification-service
+    container_name: notification-service
+    ports:
+      - "8084:8084"
+    depends_on:
+      - mongodb
+      - kafka
+      - configserver
+      - eurekaserver
+    environment:
+      - SPRING_PROFILES_ACTIVE=default
+    networks:
+      - microservice-network
+
+# Zookeeper and Kafka
   zookeeper:
-    image: confluentinc/cp-zookeeper:7.4.0
+    image: bitnami/zookeeper:3.9
     container_name: zookeeper
     ports:
       - "2181:2181"
     environment:
-      ZOOKEEPER_CLIENT_PORT: 2181
-      ZOOKEEPER_TICK_TIME: 2000
+      - ALLOW_ANONYMOUS_LOGIN=yes
+    volumes:
+      - zookeeper_data:/bitnami/zookeeper
     networks:
       - microservice-network
 
   kafka:
-    image: confluentinc/cp-kafka:7.4.0
+    image: bitnami/kafka:3.6
     container_name: kafka
     ports:
       - "9092:9092"
     environment:
-      KAFKA_BROKER_ID: 1
-      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
-      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      - KAFKA_BROKER_ID=1
+      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
+      - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092
+      - ALLOW_PLAINTEXT_LISTENER=yes
+    depends_on:
+      - zookeeper
+    volumes:
+      - kafka_data:/bitnami/kafka
     networks:
       - microservice-network
+
+volumes:
+  postgres_data:
+  kafka_data:
+  zookeeper_data:
 
 networks:
   microservice-network:

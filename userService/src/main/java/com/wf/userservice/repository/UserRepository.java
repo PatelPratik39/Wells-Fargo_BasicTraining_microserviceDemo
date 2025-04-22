@@ -4,6 +4,7 @@ import com.wf.userservice.dto.UserDTO;
 import com.wf.userservice.entity.User;
 import org.springframework.data.mongodb.repository.Aggregation;
 import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import java.util.*;
 

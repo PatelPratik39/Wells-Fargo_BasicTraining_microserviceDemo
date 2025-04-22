@@ -1,0 +1,34 @@
+### Create User
+POST http://localhost:8081/api/users
+Content-Type: application/json
+
+{
+  "name": "Raman Ganga",
+  "email": "raman@example.com",
+  "city": "San Jose",
+  "country": "Usa",
+  "sales": 20
+}
+
+### Get All Users
+GET http://localhost:8081/api/users
+
+### Get User By ID
+GET http://localhost:8081/api/users/68001a1c934cc41af089a116
+
+### Update User
+PUT http://localhost:8081/api/users/68001a1c934cc41af089a116
+Content-Type: application/json
+
+{
+  "name": "Chucha Lal Updated",
+  "email": "chucha.updated@example.com",
+  "city": "New York",
+  "sales": 1500
+}
+
+### Delete User
+DELETE http://localhost:8081/api/users/{{userId}}
+
+### User Count Grouped By City
+GET http://localhost:8081/api/users/states/city
