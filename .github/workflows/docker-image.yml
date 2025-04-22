@@ -26,13 +26,26 @@ jobs:
           distribution: 'temurin'
           cache: 'maven'
 
-      - name: Build ${{ matrix.service }}
-        working-directory: ${{ matrix.service }}
-        run: mvn clean package -DskipTests
+      - name: Build all services
+        run: |
+          for service in user-service product-service order-service notification-service
+          do
+            echo "Building $service"
+            cd $service
+            mvn clean package -DskipTests
+            docker build -t $service:latest .
+            cd ..
+          done
 
-      - name: Build Docker image for ${{ matrix.service }}
-        working-directory: ${{ matrix.service }}
-        run: docker build -t ${{ matrix.service }}:latest .
+      - name: Run docker-compose
+        run: docker-compose -f docker-compose.yml up -d --build
+#      - name: Build ${{ matrix.service }}
+#        working-directory: ${{ matrix.service }}
+#        run: mvn clean package -DskipTests
+#
+#      - name: Build Docker image for ${{ matrix.service }}
+#        working-directory: ${{ matrix.service }}
+#        run: docker build -t ${{ matrix.service }}:latest .
 
   # Optional: Run docker-compose after all services are built
   run-docker-compose:

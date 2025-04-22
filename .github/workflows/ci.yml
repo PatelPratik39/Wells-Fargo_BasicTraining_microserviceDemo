@@ -43,14 +43,14 @@ jobs:
         with:
           distribution: temurin
           java-version: '21'
+          cache: maven
 
-      - name: Run Maven tests
-        working-directory: ./productService
-        run: mvn test
+      - name: Verify Maven
+        run: mvn -v
 
-      - name: Build package (skip tests)
+      - name: Build & Run Tests
         working-directory: ./productService
-        run: mvn package -DskipTests
+        run: mvn clean verify
 
 
 #name: CI/CD Hello World
