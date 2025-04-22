@@ -8,7 +8,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.util.*;
 
 @RestController
@@ -19,9 +20,12 @@ public class UserController {
 
     private final UserService userService;
 
+    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+
     @Operation(summary = "Create a User")
     @PostMapping
     public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO){
+        logger.info("Creating a User");
         return new ResponseEntity<>(userService.createUser(userDTO), HttpStatus.CREATED);
     }
 
