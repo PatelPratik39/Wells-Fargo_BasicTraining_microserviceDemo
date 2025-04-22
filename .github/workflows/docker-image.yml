@@ -3,9 +3,8 @@ name: CI/CD with Docker Compose
 on:
   push:
     branches: [ "pratik-branch" ]
-# Uncomment this if you want to run on pull requests too
-#  pull_request:
-#    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
 jobs:
   build-and-run:
@@ -26,28 +25,12 @@ jobs:
           distribution: 'temurin'
           cache: 'maven'
 
-      - name: Build all services
+      - name: Build and Dockerize ${{ matrix.service }}
+        working-directory: ${{ matrix.service }}
         run: |
-          for service in user-service product-service order-service notification-service
-          do
-            echo "Building $service"
-            cd $service
-            mvn clean package -DskipTests
-            docker build -t $service:latest .
-            cd ..
-          done
+          mvn clean package -DskipTests
+          docker build -t ${{ matrix.service }}:latest .
 
-      - name: Run docker-compose
-        run: docker-compose -f docker-compose.yml up -d --build
-#      - name: Build ${{ matrix.service }}
-#        working-directory: ${{ matrix.service }}
-#        run: mvn clean package -DskipTests
-#
-#      - name: Build Docker image for ${{ matrix.service }}
-#        working-directory: ${{ matrix.service }}
-#        run: docker build -t ${{ matrix.service }}:latest .
-
-  # Optional: Run docker-compose after all services are built
   run-docker-compose:
     runs-on: ubuntu-latest
     needs: build-and-run
@@ -55,5 +38,5 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Run docker-compose for integration test
+      - name: Run docker-compose
         run: docker-compose -f docker-compose.yml up -d --build
