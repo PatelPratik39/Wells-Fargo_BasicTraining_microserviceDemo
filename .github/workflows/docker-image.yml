@@ -12,7 +12,7 @@ jobs:
 
     strategy:
       matrix:
-        service: [userService, productService, orderService, notificationService]
+        service: [userService, productService, orderService, notification-service]
 
     steps:
       - name: Checkout code
