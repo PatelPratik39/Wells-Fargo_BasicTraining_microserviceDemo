@@ -7,7 +7,7 @@ spring:
 
   data:
     mongodb:
-      uri: mongodb://mongodb:27017/userDb
+      uri: mongodb://localhost:27017/userDb
 
   cloud:
     config:
