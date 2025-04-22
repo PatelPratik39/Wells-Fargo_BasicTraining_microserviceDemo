@@ -46,8 +46,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Build configserver JAR
+        working-directory: ./configserver
+        run: mvn clean package -DskipTests
+
       - name: Run docker compose
         run: docker compose -f docker-compose.yml up -d --build
-
-      - name: Validate containers are running
-        run: docker ps
