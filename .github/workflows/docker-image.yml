@@ -3,9 +3,9 @@ name: CI/CD with Docker Compose
 on:
   push:
     branches: [ "pratik-branch" ]
-# Uncomment this if you want to run on pull requests too
-#  pull_request:
-#    branches: [ "main" ]
+
+  pull_request:
+    branches: [ "main" ]
 
 jobs:
   build-and-run:
