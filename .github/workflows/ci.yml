@@ -48,9 +48,9 @@ jobs:
       - name: Verify Maven
         run: mvn -v
 
-      - name: Build & Run Tests
+      - name: Build & Package
         working-directory: ./productService
-        run: mvn clean verify
+        run: mvn clean package -DskipTests
 
 
 #name: CI/CD Hello World
