@@ -25,7 +25,7 @@ jobs:
           distribution: 'temurin'
           cache: 'maven'
 
-      - name: Check Java version
+      - name: Confirm Java version
         run: java -version
 
       - name: Build JAR for ${{ matrix.service }}
@@ -46,9 +46,19 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Build configserver JAR
+      - name: Set up Java 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: 'maven'
+
+      - name: Rebuild configserver JAR (ensures JAR exists before Docker build)
         working-directory: ./configserver
         run: mvn clean package -DskipTests
+
+      - name: Confirm Java version
+        run: java -version
 
       - name: Run docker compose
         run: docker compose -f docker-compose.yml up -d --build
