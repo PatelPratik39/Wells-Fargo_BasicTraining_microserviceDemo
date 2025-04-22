@@ -4,7 +4,7 @@ WORKDIR /app
 
 RUN apt-get update && apt-get install -y curl
 
-COPY target/configserver-0.0.1-SNAPSHOT.jar configserver.jar
+COPY target/*.jar configserver.jar
 
 EXPOSE 8888
 
