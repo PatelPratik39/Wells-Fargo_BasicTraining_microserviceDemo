@@ -12,7 +12,7 @@ jobs:
 
     strategy:
       matrix:
-        service: [userService, productService, orderService, notification-service]
+        service: [userService, productService, orderService, notification-service, configserver]
 
     steps:
       - name: Checkout code
@@ -25,19 +25,26 @@ jobs:
           distribution: 'temurin'
           cache: 'maven'
 
-      - name: Build and Dockerize ${{ matrix.service }}
-        working-directory: ${{ matrix.service }}
+      - name: Build JAR for ${{ matrix.service }}
+        working-directory: ./${{ matrix.service }}
+        run: mvn clean package -DskipTests
+
+      - name: Build Docker image for ${{ matrix.service }}
+        working-directory: ./${{ matrix.service }}
         run: |
-          mvn clean package -DskipTests
           IMAGE_TAG=$(echo "${{ matrix.service }}" | tr '[:upper:]' '[:lower:]')
           docker build -t $IMAGE_TAG:latest .
 
   run-docker-compose:
     runs-on: ubuntu-latest
     needs: build-and-run
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
+      - name: Set up Docker Compose
+        run: docker compose version
 
       - name: Run docker compose
         run: docker compose -f docker-compose.yml up -d --build
