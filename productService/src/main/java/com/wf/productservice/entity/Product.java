@@ -25,4 +25,5 @@ public class Product {
     private boolean available;
 
 
+
 }

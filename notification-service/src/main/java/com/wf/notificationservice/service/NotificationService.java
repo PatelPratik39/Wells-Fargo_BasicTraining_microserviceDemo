@@ -13,4 +13,6 @@ public interface NotificationService {
     List<Notification> getNotificationsByUserId(String userId);
     List<Notification> getAllNotifications();
 
+
+
 }

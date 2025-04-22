@@ -34,4 +34,7 @@ public class NotificationServiceImpl implements NotificationService {
     public List<Notification> getAllNotifications() {
         return notificationRepository.findAll();
     }
+
+
+
 }

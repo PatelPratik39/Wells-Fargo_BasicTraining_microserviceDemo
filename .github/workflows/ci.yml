@@ -45,11 +45,11 @@ jobs:
           java-version: '21'
 
       - name: Run Maven tests
-        working-directory: ./productService   # 👈 Change to your folder with pom.xml
+        working-directory: ./productService
         run: mvn test
 
       - name: Build package (skip tests)
-        working-directory: ./productService   # 👈 Same here
+        working-directory: ./productService
         run: mvn package -DskipTests
 
 

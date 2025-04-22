@@ -14,7 +14,6 @@ public interface UserService {
     List<UserDTO> getAllUsers();
     UserDTO updateUser(String id, UserDTO userDTO);
     Map<String, Long> getUserCountGroupedByCity();
-
     void deleteUser(String id);
 
 }

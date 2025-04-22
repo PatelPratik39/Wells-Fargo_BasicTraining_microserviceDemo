@@ -21,6 +21,7 @@ public class ProductServiceImpl implements ProductService {
     private final ProductKafkaProducer productKafkaProducer;
     private final ProductMapper productMapper;
 
+
     @Override
     public ProductDTO createProduct(ProductDTO productDTO) {
         Product product = productRepository.save(productMapper.mapToEntity(productDTO));
