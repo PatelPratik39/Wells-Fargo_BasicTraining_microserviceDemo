@@ -1,3 +1,11 @@
-POST http://localhost:8081/api/kafka/publish?message=HelloKafka
+#POST http://localhost:8081/api/kafka/publish?message=HelloKafka
+#
+#GET http://localhost:8761/
 
-GET http://localhost:8761/
+
+## Get all users
+
+POST http://localhost:8081/api/users/notify-order
+Content-Type: application/json
+
+"New user registered!"

@@ -33,9 +33,12 @@ spring:
     name: order-service
   config:
     import: optional:configserver:http://configserver:8888
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/orderDb
 
-#server:
-#  port: 8082
+server:
+  port: 8082
 
 
 

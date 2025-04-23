@@ -4,5 +4,15 @@ spring:
   config:
     import: optional:configserver:http://configserver:8888
 
-#server:
-#  port: 8083
+  datasource:
+    url: jdbc:postgresql://localhost:5432/productDb
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+server:
+  port: 8083
