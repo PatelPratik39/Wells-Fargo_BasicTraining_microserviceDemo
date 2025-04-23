@@ -11,5 +11,7 @@ public class ProductKafkaConsumer {
     @KafkaListener(topics = "product-topic", groupId = "product-group")
     public void consume(String message){
         log.info("Consumed product event: {}", message);
+//        OR
+        System.out.println("Received message: " + message);
     }
 }

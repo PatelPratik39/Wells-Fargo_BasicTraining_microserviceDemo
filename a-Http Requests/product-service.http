@@ -1,5 +1,40 @@
-### GET request to example server
-GET https://examples.http-client.intellij.net/get
-    ?generated-in=IntelliJ IDEA
+### Create Product
+POST http://localhost:8083/api/products
+Content-Type: application/json
+
+{
+  "name": "iPhone 15 Pro",
+  "description": "Latest Apple smartphone 1",
+  "price": 2199.99,
+  "quantity": 13,
+  "available": true
+}
 
 ###
+
+### Get All Products
+GET http://localhost:8083/api/products
+
+###
+
+### Get Product by ID
+GET http://localhost:8083/api/products/1
+
+###
+
+### Update Product
+PUT http://localhost:8083/api/products/1
+Content-Type: application/json
+
+{
+  "name": "iPhone 15 Pro Max",
+  "description": "Updated description",
+  "price": 1299.99,
+  "quantity": 15,
+  "available": true
+}
+
+###
+
+### Delete Product
+DELETE http://localhost:8083/api/products/1

@@ -18,15 +18,15 @@ import java.util.stream.Collectors;
 public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
-    private final ProductKafkaProducer productKafkaProducer;
     private final ProductMapper productMapper;
-
+    private final ProductKafkaProducer kafkaProducer;
 
     @Override
-    public ProductDTO createProduct(ProductDTO productDTO) {
-        Product product = productRepository.save(productMapper.mapToEntity(productDTO));
-//        product.sendProductCreatedEvent(product);
-        return productMapper.mapToDto(product);
+    public ProductDTO createProduct(ProductDTO dto) {
+        Product product = productMapper.mapToEntity(dto);
+        Product saved = productRepository.save(product);
+        kafkaProducer.sendProductMessage(productMapper.mapToJson(saved));
+        return productMapper.mapToDto(saved);
     }
 
     @Override
@@ -53,14 +53,16 @@ public class ProductServiceImpl implements ProductService {
         product.setAvailable(productDTO.isAvailable());
 
         Product updatedProduct = productRepository.save(product);
-        productKafkaProducer.sendProductMessage(productMapper.mapToJson(updatedProduct));
+        kafkaProducer.sendProductMessage(productMapper.mapToJson(updatedProduct));
         return productMapper.mapToDto(updatedProduct);
     }
 
     @Override
     public void deleteProduct(Long id) {
-        Product product = productRepository.findById(id).orElseThrow(() -> new ProductNotFoundException(id));
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new ProductNotFoundException(id));
         productRepository.delete(product);
-        productRepository.sendProductDeletedEvent(product);
+        kafkaProducer.sendProductMessage("Product deleted with ID: " + id);
+
     }
 }

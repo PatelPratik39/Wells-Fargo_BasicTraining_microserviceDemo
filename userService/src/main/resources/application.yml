@@ -1,29 +1,3 @@
-#spring:
-#  application:
-#    name: user-service
-#  config:
-#    import: optional:configserver:http://configserver:8888
-#    fail-fast: true
-#  data:
-#    mongodb:
-#      uri: mongodb://mongoDb:27017/userDb
-#management:
-#  tracing:
-#    sampling:
-#      probability: 1.0
-#  zipkin:
-#    tracing:
-#      endpoint: http://zipkin:9411/api/v2/spans
-#  endpoints:
-#    web:
-#      exposure:
-#        include: "*"
-#  prometheus:
-#    metrics:
-#      export:
-#        enabled: true
-#server:
-#  port: 8081
 
 spring:
   application:
@@ -31,33 +5,9 @@ spring:
   config:
     import: optional:configserver:http://configserver:8888
 
-#server:
-#  port: 8081
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/userDb
 
-
-
-
-
-
-#  data:
-#    mongodb:
-#      uri: mongodb://mongodb:27017/userDb
-#
-#  cloud:
-#    config:
-#      enabled: true
-#
-#  main:
-#    allow-bean-definition-overriding: true
-#
-#  kafka:
-#    bootstrap-servers: kafka:9092
-#    consumer:
-#      group-id: user-group
-#      auto-offset-reset: earliest
-#      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-#      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-#    producer:
-#      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-#      value-serializer: org.apache.kafka.common.serialization.StringSerializer
-#
+server:
+  port: 8081
