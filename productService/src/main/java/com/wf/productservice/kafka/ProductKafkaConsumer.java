@@ -1,6 +1,5 @@
 package com.wf.productservice.kafka;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wf.productservice.dto.ProductDTO;
 import com.wf.productservice.entity.Product;
 import com.wf.productservice.mapper.ProductMapper;
@@ -25,7 +24,7 @@ public class ProductKafkaConsumer {
         Product product = productMapper.mapToEntity(productDTO);
         productRepository.save(product);
     }
-
+}
 //    @KafkaListener(topics = "product-topic", groupId = "product-group")
 //    public void consumeProduct(String message) {
 //        log.info("Received message: {}", message);
@@ -40,4 +39,4 @@ public class ProductKafkaConsumer {
 //            log.error("Failed to parse product message", e);
 //        }
 //    }
-}
+//}

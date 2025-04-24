@@ -22,19 +22,21 @@ public class KafkaProducerConfig {
         props.put(ConsumerConfig.GROUP_ID_CONFIG, "product-group");
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
-        props.put(JsonDeserializer.TRUSTED_PACKAGES, "*");
+        props.put(JsonDeserializer.TRUSTED_PACKAGES, "com.wf.productservice.dto");
 
-        return new DefaultKafkaConsumerFactory<>(props, new StringDeserializer(),
+        return new DefaultKafkaConsumerFactory<>(props,
+                new StringDeserializer(),
                 new JsonDeserializer<>(ProductDTO.class));
     }
 
-    @Bean
+    @Bean(name = "productKafkaListenerContainerFactory")
     public ConcurrentKafkaListenerContainerFactory<String, ProductDTO> productKafkaListenerContainerFactory() {
         ConcurrentKafkaListenerContainerFactory<String, ProductDTO> factory =
                 new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(productConsumerFactory());
         return factory;
     }
+
 
 
 //    @Bean

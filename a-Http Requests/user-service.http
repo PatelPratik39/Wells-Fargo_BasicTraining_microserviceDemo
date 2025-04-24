@@ -3,10 +3,10 @@ POST http://localhost:8081/api/users
 Content-Type: application/json
 
 {
-  "name": "Gopal Verma",
-  "email": "gopal@example.com",
-  "city": "Newak",
-  "country": "USA",
+  "name": "Macy Lacy",
+  "email": "macy@example.com",
+  "city": "Cancun",
+  "country": "Mexico",
   "sales": 22
 }
 
