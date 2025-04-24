@@ -1,18 +1,18 @@
-package com.wf.notificationservice.dto;
+package com.wf.userservice.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
 import java.util.Map;
+
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class NotificationRequest {
+public class NotificationDTO {
 
     private String userId;
     private String message;

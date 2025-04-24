@@ -2,17 +2,29 @@ spring:
   application:
     name: product-service
   config:
-    import: optional:configserver:http://configserver:8888
+    import: optional:configserver:http://localhost:8888
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/productDb
+    url: jdbc:postgresql://localhost:5432/productdb
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver
+
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+logging:
+  level:
+    org.apache.kafka.clients.producer.KafkaProducer: DEBUG
+    org.apache.kafka.clients.consumer.KafkaConsumer: DEBUG
+    org.springframework.kafka: INFO
+    com.wf: DEBUG  # Your package
+
 
 server:
   port: 8083

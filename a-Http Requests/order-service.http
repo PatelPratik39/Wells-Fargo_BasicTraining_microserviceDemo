@@ -4,9 +4,9 @@ Content-Type: application/json
 
 {
   "userId": "userId-placeholder",
-  "product": "MacBook Pro",
+  "product": "Apple Ipad",
   "quantity": 1,
-  "price": 2499,
+  "price": 999.99,
   "status": "Yes"
 }
 
@@ -14,14 +14,14 @@ Content-Type: application/json
 GET http://localhost:8082/api/orders
 
 ### Get Order By ID
-GET http://localhost:8082/api/orders/68002cb918bfd77d89f89fe3
+GET http://localhost:8082/api/orders/6809b834c1792955cd14b7b8
 
 ### Update Order
-PUT http://localhost:8082/api/orders/68002cb918bfd77d89f89fe3
+PUT http://localhost:8082/api/orders/6809b834c1792955cd14b7b8
 Content-Type: application/json
 
 {
-  "product": "MacBook Air",
+  "product": "Apple Macbook Pro 16",
   "quantity": 2,
   "price": 3900,
   "status": "No"

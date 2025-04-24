@@ -5,7 +5,13 @@
 
 ## Get all users
 
-POST http://localhost:8081/api/users/notify-order
+POST http://localhost:8081/api/kafka/notify-order
 Content-Type: application/json
 
-"New user registered!"
+
+{
+  "orderId": 1,
+  "userId": 1,
+  "productId": 1,
+  "quantity": 2
+}

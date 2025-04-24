@@ -7,28 +7,29 @@ import org.springframework.stereotype.Component;
 @Component
 public class ProductMapper {
 
-//    convert entity to dto
+    // Convert entity to DTO
     public ProductDTO mapToDto(Product product) {
         if (product == null) {
             return null;
         }
+
         ProductDTO productDTO = new ProductDTO();
-        productDTO.setId(product.getId());
+        productDTO.setId(product.getId()); // include only if you need ID in response
         productDTO.setName(product.getName());
         productDTO.setDescription(product.getDescription());
         productDTO.setPrice(product.getPrice());
         productDTO.setQuantity(product.getQuantity());
         productDTO.setAvailable(product.isAvailable());
+
         return productDTO;
     }
 
-//    convert dto to entity
+    // Convert DTO to entity
     public Product mapToEntity(ProductDTO productDTO) {
         if (productDTO == null) {
             return null;
         }
         Product product = new Product();
-        product.setId(productDTO.getId());
         product.setName(productDTO.getName());
         product.setDescription(productDTO.getDescription());
         product.setPrice(productDTO.getPrice());
@@ -36,12 +37,19 @@ public class ProductMapper {
         product.setAvailable(productDTO.isAvailable());
         return product;
     }
-//    convert entity to json
+
+    // Convert entity to JSON (for logging/debugging)
     public String mapToJson(Product product) {
         if (product == null) {
             return null;
         }
-        return "{ \"id\": " + product.getId() + ", \"name\": \"" + product.getName() + "\", \"description\": \"" + product.getDescription() + "\", \"price\": " + product.getPrice() + ", \"quantity\": " + product.getQuantity() + ", \"available\": " + product.isAvailable() + " }";
-    }
 
+        return "{ \"id\": " + product.getId()
+                + ", \"name\": \"" + product.getName()
+                + "\", \"description\": \"" + product.getDescription()
+                + "\", \"price\": " + product.getPrice()
+                + ", \"quantity\": " + product.getQuantity()
+                + ", \"available\": " + product.isAvailable()
+                + " }";
+    }
 }

@@ -1,12 +1,14 @@
-package com.wf.productservice.dto;
+package com.wf.userservice.dto;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class ProductDTO {
     private Long id;
     private String name;

@@ -1,4 +1,4 @@
-package com.wf.orderservice.dto;
+package com.wf.userservice.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

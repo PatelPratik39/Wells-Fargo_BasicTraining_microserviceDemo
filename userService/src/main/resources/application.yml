@@ -3,11 +3,18 @@ spring:
   application:
     name: user-service
   config:
-    import: optional:configserver:http://configserver:8888
+    import: optional:configserver:http://localhost:8888
 
   data:
     mongodb:
       uri: mongodb://localhost:27017/userDb
+logging:
+  level:
+    org.apache.kafka.clients.producer.KafkaProducer: DEBUG
+    org.apache.kafka.clients.consumer.KafkaConsumer: DEBUG
+    org.springframework.kafka: INFO
+    com.wf: DEBUG  # Your package
+
 
 server:
   port: 8081
