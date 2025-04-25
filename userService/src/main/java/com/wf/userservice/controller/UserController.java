@@ -5,14 +5,17 @@ import com.wf.userservice.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import brave.Tracer;
 
 import java.util.*;
 
+@Slf4j
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/users")
@@ -21,11 +24,14 @@ public class UserController {
 
     private final UserService userService;
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+    private final Tracer tracer;
 
     @Operation(summary = "Create a User")
     @PostMapping
     public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO){
         logger.info("Attempting to create a new user: {}", userDTO);
+        String traceId = tracer.currentSpan().context().traceIdString();
+        log.info("📌 Creating user, traceId={}", traceId);
         try {
             UserDTO createdUser = userService.createUser(userDTO);
             logger.debug("New user created successfully with ID: {}", createdUser.getId());

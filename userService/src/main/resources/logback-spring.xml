@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration scan="true" scanPeriod="30 seconds">
 
-    <property name="LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss} %-5level [%thread] %logger{36} - %msg%n"/>
+    <property name="LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss} %-5level [%X{traceId},%X{spanId}] [%thread] %logger{36} - %msg%n"/>
     <property name="LOG_FILE" value="logs/${spring.application.name}.log"/>
 
     <!-- Console Appender -->
