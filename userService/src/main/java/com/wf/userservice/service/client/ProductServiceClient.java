@@ -8,5 +8,5 @@ import org.springframework.web.bind.annotation.RequestBody;
 @FeignClient(name = "PRODUCT-SERVICE")
 public interface ProductServiceClient {
     @PostMapping("/api/products")
-    ProductDTO createProduct(@RequestBody ProductDTO productDTO);
+    void createProduct(@RequestBody ProductDTO productDTO);
 }
